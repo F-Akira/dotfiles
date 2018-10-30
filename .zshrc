@@ -71,7 +71,7 @@ autoload -Uz add-zsh-hook
 }
 
 # プラグイン
-source /Users/afurutani/.zsh_plugin/zaw/zaw.zsh
+source $HOME/.zsh_plugin/zaw/zaw.zsh
 
 # キーバインド
 bindkey '^h' zaw-history
