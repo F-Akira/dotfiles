@@ -8,9 +8,17 @@ zstyle ':completion:*:default' menu select=2
 export LANG=ja_JP.UTF-8
 
 # 色の設定
-export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
-export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
-zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
+case ${OSTYPE} in
+    darwin*)
+        export LSCOLORS=gxfxcxdxbxegedabagacad
+        export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+        zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+        ;;
+    linux*)
+        export LS_COLORS='di=01;34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+        zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+        ;;
+esac
 
 # ビープ音なし
 setopt nobeep
@@ -25,8 +33,15 @@ setopt auto_pushd
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias mkdir='(){mkdir $1;cd $1}'
-alias ls='ls -GF'
 alias dirs='dirs -v'
+case ${OSTYPE} in
+    darwin*)
+        alias ls='ls -GF'
+        ;;
+    linux*)
+        alias ls='ls -F --color=auto'
+        ;;
+esac
 
 # パス追加
 export PATH=$PATH:~/.local/bin
